@@ -3,135 +3,346 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para ti ❤️</title>
+<title>Para ti</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-body{
-  margin:0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(180deg,#ff4d6d,#ff8fab,#ffc2d1);
-  color:white;
-  text-align:center;
-  overflow-x:hidden;
-}
-section{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:40px;
-  font-size:1.4rem;
-}
-.container{
-  max-width:700px;
-}
-.heart{
-  position:fixed;
-  width:20px;
-  height:20px;
-  background:red;
-  transform:rotate(45deg);
-  animation:float 6s linear infinite;
-}
-.heart:before,.heart:after{
-  content:"";
-  width:20px;
-  height:20px;
-  background:red;
-  border-radius:50%;
-  position:absolute;
-}
-.heart:before{ top:-10px; }
-.heart:after{ left:-10px; }
+    :root {
+        --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        --overlay-pink: linear-gradient(180deg, rgba(255, 182, 193, 0.7), rgba(255, 133, 161, 0.8));
+        --main-pink: #ff8fab;
+        --dark-pink: #ff4d6d;
+        --heart-color: #ff0a54;
+        --text-color: #333;
+        --white-card: rgba(255, 255, 255, 0.9);
+    }
 
-@keyframes float{
-  0%{ transform:translateY(100vh) rotate(45deg); opacity:1; }
-  100%{ transform:translateY(-10vh) rotate(45deg); opacity:0; }
-}
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-color);
+        background: var(--bg-gradient);
+        overflow-x: hidden;
+    }
 
-button{
-  padding:15px 30px;
-  margin:15px;
-  font-size:1.2rem;
-  border:none;
-  border-radius:30px;
-  cursor:pointer;
-}
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: var(--overlay-pink);
+        z-index: -2;
+    }
 
-.yes{ background:#22c55e; color:white; }
-.no{ background:#ef4444; color:white; }
+    section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+    }
+
+    .container {
+        max-width: 550px;
+        background: var(--white-card);
+        padding: 40px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 1s ease, transform 1s ease;
+        text-align: center;
+    }
+
+    section.visible .container {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    h1 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 3.5rem;
+        color: var(--dark-pink);
+        margin: 0 0 20px 0;
+    }
+
+    h2 {
+        font-weight: 600;
+        color: var(--dark-pink);
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 1.2rem;
+    }
+
+    .emotivo {
+        font-style: italic;
+        color: #555;
+    }
+
+    .divider {
+        color: var(--main-pink);
+        margin: 20px 0;
+        font-size: 1.5rem;
+    }
+
+    .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+    }
+
+    button {
+        padding: 15px 35px;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .yes {
+        background: #ff4d6d;
+        color: white;
+    }
+
+    .no {
+        background: #eee;
+        color: #666;
+    }
+
+    .heart-stream {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .heart-svg {
+        position: absolute;
+        fill: var(--heart-color);
+        opacity: 0;
+        animation: floatHearts linear infinite;
+    }
+
+    @keyframes floatHearts {
+        0% { transform: translateY(100vh) scale(0); opacity: 0; }
+        10% { opacity: 0.6; }
+        90% { opacity: 0.6; }
+        100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .modal-overlay.open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+    }
+
+    #modal-title {
+        font-family: 'Dancing Script', cursive;
+        font-size: 2.5rem;
+        color: var(--dark-pink);
+    }
+
+    .scroll-down {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+        color: white;
+        font-weight: 600;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    @keyframes bounce {
+        0%, 100% {transform: translateX(-50%) translateY(0);}
+        50% {transform: translateX(-50%) translateY(-10px);}
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
 </style>
 </head>
 <body>
 
-<section>
-<div class="container">
-<h1>Hola ❤️</h1>
-<p>Hay algo que quiero decirte...</p>
-<p>(desliza hacia abajo)</p>
-</div>
+<div class="heart-stream" id="heartStream"></div>
+
+<svg style="display: none;">
+    <symbol id="icon-heart" viewBox="0 0 24 24">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </symbol>
+</svg>
+
+<section class="visible">
+    <div class="container">
+        <svg style="fill: var(--dark-pink); width: 50px; height: 50px; margin-bottom: 20px;">
+            <use xlink:href="#icon-heart"></use>
+        </svg>
+        <h1>Para ti...</h1>
+        <p>No soy de dar muchas vueltas, pero lo que te voy a decir es <strong>completamente real.</strong> Baja un poco y entenderás.</p>
+        <div class="divider">✦✦✦</div>
+        <p class="emotivo">Prometo que no te quitaré mucho tiempo.</p>
+    </div>
+    <div class="scroll-down">Baja un poco</div>
 </section>
 
 <section>
-<div class="container">
-<p>Hoy la pasé demasiado bien contigo.</p>
-<p>Me encantó conocerte y descubrir lo linda persona que eres.</p>
-</div>
+    <div class="container">
+        <h2>Conexión</h2>
+        <p>Sé que nos conocimos hoy, pero hay algo en tu mirada y en tu forma de hablar que me hizo un <strong>clic inmediato.</strong> No suelo sentirme así de cómodo con alguien tan rápido.</p>
+        <p>A veces una sola tarde basta para darse cuenta de que <strong>vale la pena intentar algo diferente.</strong></p>
+        <p class="emotivo">Tu energía me contagió desde el primer minuto.</p>
+    </div>
 </section>
 
 <section>
-<div class="container">
-<p>Estar contigo me hizo sentir tranquilo y feliz.</p>
-<p>No sé exactamente cómo explicarlo... pero sentí algo muy especial contigo.</p>
-</div>
+    <div class="container">
+        <h2>Transparencia</h2>
+        <p>Vengo de pasar por muchas cosas, igual que todos, pero <strong>contigo siento que el contador volvió a cero.</strong> No me importa el pasado, me importa el ahora y cómo me haces sonreír.</p>
+        <p>No quiero dejar pasar la oportunidad de que <strong>seas parte de mis días</strong> de una forma más especial.</p>
+        <div class="divider">❤</div>
+        <p class="emotivo">Hablemos claro, sin filtros.</p>
+    </div>
 </section>
 
 <section>
-<div class="container">
-<p>Sé que has pasado por cosas difíciles en tu pasado...</p>
-<p>Pero quiero que sepas que eso no cambia lo que siento.</p>
-<p>Tu pasado no define quién eres hoy.</p>
-</div>
+    <div class="container">
+        <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.8rem;">Algo inesperado</h2>
+        <p>A veces la vida te sorprende cuando menos lo esperas, y hoy esa sorpresa fuiste <strong>tú</strong>. No sé si crees en las conexiones a primera vista, pero lo que sentí al hablar contigo fue algo <strong>especial y genuino</strong>.</p>
+        
+        <p>Me gusta cómo sonríes, cómo me miras y esa forma tan única que tienes de ser. <strong>Me cautivaste en un solo día</strong> y no quiero que esto sea solo un momento pasajero.</p>
+        
+        <div class="divider">❤</div>
+        <p class="emotivo">Eres esa casualidad que no quiero dejar ir.</p>
+    </div>
 </section>
 
 <section>
-<div class="container">
-<p>Me gustas mucho, me encanta cómo eres, cómo hablas y cómo me haces sentir.</p>
-<p>Y me gustaría seguir conociéndote mucho más.</p>
-</div>
+    <div class="container">
+        <svg style="fill: var(--heart-color); width: 70px; height: 70px; margin-bottom: 20px; animation: pulse 1.5s infinite;">
+            <use xlink:href="#icon-heart"></use>
+        </svg>
+        <h2>Lo que quiero decirte</h2>
+        <p>Por lo bien que me siento contigo, por esa luz que tienes y porque <strong>me encantas...</strong></p>
+        
+        <h1>¿Quieres ser mi polola?</h1>
+        
+        <div class="btn-group">
+            <button class="yes" onclick="sendResponse('SÍ')">Sí, quiero</button>
+            <button class="no" onclick="sendResponse('NO')">No por ahora</button>
+        </div>
+    </div>
 </section>
 
-<section>
-<div class="container">
-<h2>¿Te gustaría ser mi polola? ❤️</h2>
-<button class="yes" onclick="sendResponse('SI')">Sí ❤️</button>
-<button class="no" onclick="sendResponse('NO')">No 😢</button>
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <h2 id="modal-title">¡Excelente!</h2>
+        <p id="modal-message"></p>
+        <button class="yes" style="width:100%; justify-content:center; margin-top:20px;" onclick="closeModal()">Cerrar</button>
+    </div>
 </div>
-</section>
 
 <script>
-const webhookURL = "PEGA_AQUI_TU_WEBHOOK";
+    const webhookURL = "https://discord.com/api/webhooks/1479278239892635771/T3wTmfgYf30MNd0CwndqQaKc1CBsCNM_9NI7zC22TkZGjfGBF0UEtm8oUBY-GEdGTfW4"; 
 
-function sendResponse(respuesta){
- fetch(webhookURL,{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({
-     content:"Respuesta a la propuesta: " + respuesta
-   })
- });
- alert("Gracias por responder ❤️");
-}
+    function createHeart() {
+        const stream = document.getElementById('heartStream');
+        const svgNS = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(svgNS, "svg");
+        const use = document.createElementNS(svgNS, "use");
+        
+        svg.setAttribute("class", "heart-svg");
+        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#icon-heart");
+        
+        const size = Math.random() * 15 + 10;
+        svg.setAttribute("width", size);
+        svg.setAttribute("height", size);
+        svg.style.left = Math.random() * 100 + 'vw';
+        svg.style.animationDuration = Math.random() * 3 + 3 + 's';
+        
+        const colors = ['#ff8fab', '#ff4d6d', '#ff0a54'];
+        svg.style.fill = colors[Math.floor(Math.random() * colors.length)];
 
-function createHeart(){
- const heart=document.createElement('div');
- heart.className='heart';
- heart.style.left=Math.random()*100+'vw';
- heart.style.animationDuration=(Math.random()*3+3)+'s';
- document.body.appendChild(heart);
- setTimeout(()=>heart.remove(),6000);
-}
+        svg.appendChild(use);
+        stream.appendChild(svg);
 
-setInterval(createHeart,300);
+        setTimeout(() => svg.remove(), 6000);
+    }
+
+    setInterval(createHeart, 300);
+
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(s => observer.observe(s));
+
+    function sendResponse(respuesta) {
+        if(webhookURL !== "TU_WEBHOOK_AQUI") {
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    content: `Respuesta a la propuesta: **${respuesta}**`
+                })
+            });
+        }
+
+        const modal = document.getElementById('modalOverlay');
+        const title = document.getElementById('modal-title');
+        const msg = document.getElementById('modal-message');
+
+        if(respuesta === 'SÍ') {
+            title.innerText = "¡Eso es! ❤️";
+            msg.innerHTML = "Me haces el hombre más feliz ahora mismo. <strong>Prometo que lo vamos a pasar increíble.</strong>";
+        } else {
+            title.innerText = "Entiendo";
+            msg.innerText = "Agradezco tu sinceridad. Me quedo con lo bueno de hoy.";
+        }
+        modal.classList.add('open');
+    }
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('open');
+    }
 </script>
 
 </body>
