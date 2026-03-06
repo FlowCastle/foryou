@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestros Recuerdos ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-color: #f8f9fa;
+        --accent-pink: #ff4d6d;
+        --soft-pink: #ff8fab;
+        --text-dark: #333;
+        --polaroid-bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-color);
+        background-image: radial-gradient(#ffccd5 0.5px, transparent 0.5px);
+        background-size: 20px 20px; /* Fondo con puntitos sutiles */
+        color: var(--text-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding-bottom: 50px;
+    }
+
+    /* --- CABECERA --- */
+    header {
+        text-align: center;
+        padding: 60px 20px;
+        width: 100%;
+        background: white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-bottom: 40px;
+    }
+
+    h1 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 3.5rem;
+        color: var(--accent-pink);
+        margin: 0;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+        color: #666;
+        margin-top: 10px;
+    }
+
+    /* --- CONTENEDOR DEL COLLAGE --- */
+    .collage-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 40px;
+        max-width: 1000px;
+        width: 90%;
+        padding: 20px;
+    }
+
+    /* --- ESTILO POLAROID --- */
+    .polaroid {
+        background: var(--polaroid-bg);
+        padding: 15px 15px 40px 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border: 1px solid #eee;
+        transition: transform 0.3s ease;
+        position: relative;
+    }
+
+    .polaroid:hover {
+        transform: scale(1.05) rotate(0deg) !important;
+        z-index: 10;
+        box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+    }
+
+    .photo-placeholder {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: #fdf2f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid #f0f0f0;
+    }
+
+    /* Cuando tengas la foto real, usa la etiqueta img dentro de photo-placeholder */
+    .photo-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .caption {
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.6rem;
+        color: #444;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .date-tag {
+        font-size: 0.85rem;
+        color: #999;
+        text-align: center;
+        margin-top: 5px;
+        font-weight: 300;
+    }
+
+    /* --- DECORACIÓN EXTRA --- */
+    .tape {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(2px);
+        border: 1px solid rgba(0,0,0,0.05);
+        z-index: 5;
+    }
+
+    .back-btn {
+        margin-top: 50px;
+        padding: 12px 30px;
+        background: var(--accent-pink);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+    }
+
+    .back-btn:hover {
+        background: var(--soft-pink);
+        transform: translateY(-2px);
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 600px) {
+        h1 { font-size: 2.5rem; }
+        .collage-container { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Nuestra Historia</h1>
+    <p class="subtitle">Cada momento contigo es mi recuerdo favorito.</p>
+</header>
+
+<div class="collage-container">
+
+    <div class="polaroid" style="transform: rotate(-3deg);">
+        <div class="tape"></div>
+        <div class="photo-placeholder">
+            <svg viewBox="0 0 24 24" style="fill: var(--accent-pink); width: 60px;">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            </div>
+        <div class="caption">El inicio de todo</div>
+        <div class="date-tag">5/3/2026 • 21:48</div>
+    </div>
+
+    <div class="polaroid" style="transform: rotate(2deg); opacity: 0.6;">
+        <div class="tape"></div>
+        <div class="photo-placeholder">
+            <span style="color: #ccc; font-size: 0.9rem;">Próximamente...</span>
+        </div>
+        <div class="caption">Nuestra próxima aventura</div>
+        <div class="date-tag">Muy pronto</div>
+    </div>
+
+</div>
+
+<a href="/" class="back-btn">Volver al inicio ❤️</a>
+
+</body>
+</html>
