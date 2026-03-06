@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti ❤️</title>
+<style>
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg,#ff4d6d,#ff8fab,#ffc2d1);
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+}
+section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+  font-size:1.4rem;
+}
+.container{
+  max-width:700px;
+}
+.heart{
+  position:fixed;
+  width:20px;
+  height:20px;
+  background:red;
+  transform:rotate(45deg);
+  animation:float 6s linear infinite;
+}
+.heart:before,.heart:after{
+  content:"";
+  width:20px;
+  height:20px;
+  background:red;
+  border-radius:50%;
+  position:absolute;
+}
+.heart:before{ top:-10px; }
+.heart:after{ left:-10px; }
+
+@keyframes float{
+  0%{ transform:translateY(100vh) rotate(45deg); opacity:1; }
+  100%{ transform:translateY(-10vh) rotate(45deg); opacity:0; }
+}
+
+button{
+  padding:15px 30px;
+  margin:15px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+.yes{ background:#22c55e; color:white; }
+.no{ background:#ef4444; color:white; }
+</style>
+</head>
+<body>
+
+<section>
+<div class="container">
+<h1>Hola ❤️</h1>
+<p>Hay algo que quiero decirte...</p>
+<p>(desliza hacia abajo)</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<p>Hoy la pasé demasiado bien contigo.</p>
+<p>Me encantó conocerte y descubrir lo linda persona que eres.</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<p>Estar contigo me hizo sentir tranquilo y feliz.</p>
+<p>No sé exactamente cómo explicarlo... pero sentí algo muy especial contigo.</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<p>Sé que has pasado por cosas difíciles en tu pasado...</p>
+<p>Pero quiero que sepas que eso no cambia lo que siento.</p>
+<p>Tu pasado no define quién eres hoy.</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<p>Me gustas mucho, me encanta cómo eres, cómo hablas y cómo me haces sentir.</p>
+<p>Y me gustaría seguir conociéndote mucho más.</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<h2>¿Te gustaría ser mi polola? ❤️</h2>
+<button class="yes" onclick="sendResponse('SI')">Sí ❤️</button>
+<button class="no" onclick="sendResponse('NO')">No 😢</button>
+</div>
+</section>
+
+<script>
+const webhookURL = "PEGA_AQUI_TU_WEBHOOK";
+
+function sendResponse(respuesta){
+ fetch(webhookURL,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+     content:"Respuesta a la propuesta: " + respuesta
+   })
+ });
+ alert("Gracias por responder ❤️");
+}
+
+function createHeart(){
+ const heart=document.createElement('div');
+ heart.className='heart';
+ heart.style.left=Math.random()*100+'vw';
+ heart.style.animationDuration=(Math.random()*3+3)+'s';
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),6000);
+}
+
+setInterval(createHeart,300);
+</script>
+
+</body>
+</html>
